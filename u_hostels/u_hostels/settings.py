@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'rest_framework', #added
     'common', #for common objects and REST-endpoints
     'announcement_board', #for objects and REST-endpoints specificg for announcements
