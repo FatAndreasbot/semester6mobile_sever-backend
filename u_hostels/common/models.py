@@ -17,5 +17,7 @@ class Profile(models.Model):	#in case we need some additional data for our user 
 		# last_login			(optional, date)
 		# date_joined			(optional, date)
 	
+	def __str__(self) -> str:
+		return self.authData.first_name+"_"+self.authData.last_name+"_profile"
 
 	
