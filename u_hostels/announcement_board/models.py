@@ -7,7 +7,7 @@ class Post(models.Model):
 	title = models.CharField(max_length=150, blank=True, default="")
 	author = models.ForeignKey(common.Profile, on_delete=models.CASCADE)
 	created = models.DateTimeField(auto_now_add=True)
-	img = models.ImageField(upload_to="announcement_board/images/")
+	img = models.ImageField(upload_to="announcement_board/images/") #MAYBE add more pics in one post
 	is_deleted = models.BooleanField(default=False)
 	
 	def __str__(self) -> str:
