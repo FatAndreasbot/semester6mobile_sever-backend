@@ -7,9 +7,11 @@ class Post(models.Model):
 	title = models.CharField(max_length=150, blank=True, default="")
 	author = models.ForeignKey(common.Profile, on_delete=models.CASCADE)
 	created = models.DateTimeField(auto_now_add=True)
+	#i should rework attachments
 	img = models.ImageField(upload_to="announcement_board/images/") #MAYBE add more pics in one post
 	is_deleted = models.BooleanField(default=False)
-	
+	tags = models.ManyToManyField("announcementboard.Tags")
+
 	def __str__(self) -> str:
 		return self.title
 
@@ -21,3 +23,6 @@ class Comment(models.Model):
 
 	def __str__(self):
 		return (str(self.post) + '\n' + str(self.text))
+
+class Tags(models.Model):
+	name = models.CharField(max_length=50)
