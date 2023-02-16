@@ -1,35 +1,39 @@
 from rest_framework import serializers
-from announcement_board.models import Post, Comment
+from announcement_board.models import Post, Comment, Tags
 from common.models import Profile
-from django.contrib.auth.models import User
+from common.serializers import ProfileSerializer
 
-class UserSerializer(serializers.ModelSerializer):
+
+class TagSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = (
-            'id',
-            'username',
-            'first_name',
-            'last_name',
-            'last_login',
-        )
+        model = Tags
+        fields = [
+            'name'
+        ]
 
-class ProfileSerializer(serializers.ModelSerializer):
-    authData = UserSerializer(many=False, read_only=True)
-    class Meta:
-        model = Profile
-        fields = (
-            'authData',
-        )
 
-class PostSerializer(serializers.ModelSerializer):
+class PostsSerializer(serializers.ModelSerializer):
     author = ProfileSerializer(many=False, read_only=True)
+    tags = TagSerializer(many=True, read_only=True)
     class Meta:
         model = Post
-        fields = (
+        fields = [
             'id',
             'title',
             'author',
             'created',
             'img',
-        )
+            'tags'
+        ]
+    
+
+class CommentSerializer(serializers.ModelSerializer):
+    author = ProfileSerializer(many=False, read_only=True)
+    class Meta:
+        model = Comment
+        fields = [
+            'author',
+            'text',
+            #'post'
+        ]
+
