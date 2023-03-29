@@ -6,22 +6,33 @@ from common.models import Profile
 
 from .serializers import PostsSerializer, CommentSerializer
 
-# Create your views here.
 
 
-class PostList(generics.ListAPIView):
+class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostsSerializer
 
-class PostDetails(generics.RetrieveAPIView):
+
+
+class PostDetails(generics.RetrieveUpdateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostsSerializer
+
 
 class CommentsList(generics.ListAPIView):
     serializer_class = CommentSerializer
-    # queryset = Comment.objects.all()
     def get_queryset(self):
         postId = self.kwargs['pk']
         queryset = Comment.objects.filter(post=postId)
         print(postId)
         return queryset
+
+
+class CommentDetails(generics.RetrieveUpdateAPIView):
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
+
+
+class CommentCreate(generics.CreateAPIView):
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
