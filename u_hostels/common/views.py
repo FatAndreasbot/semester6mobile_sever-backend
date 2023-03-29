@@ -20,5 +20,5 @@ class RoomDetails(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         profile_id = self.kwargs['pk']
         profileRoomID = Profile.objects.filter(id=profile_id)[0].room.id
-        roomQueryset = Room.objects.filter(id = profile_id)
+        roomQueryset = Room.objects.filter(id = profileRoomID)
         return roomQueryset
