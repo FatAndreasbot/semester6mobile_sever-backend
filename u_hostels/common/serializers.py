@@ -17,6 +17,7 @@ class HostelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hostel
         fields = (
+            'id',
             'address',
             'hostelNumber'
         )

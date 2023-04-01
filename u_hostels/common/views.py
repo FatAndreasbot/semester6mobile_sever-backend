@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import generics, viewsets
 
-from common.models import Profile, Room#, Hostel
-from common.serializers import ProfileSerializer, RoomSerializer#, HostelSerializer
+from common.models import Profile, Room, Hostel
+from common.serializers import ProfileSerializer, RoomSerializer, HostelSerializer
 
 
 class ProfileList(generics.ListAPIView):
@@ -22,3 +22,19 @@ class RoomDetails(generics.RetrieveUpdateDestroyAPIView):
         profileRoomID = Profile.objects.filter(id=profile_id)[0].room.id
         roomQueryset = Room.objects.filter(id = profileRoomID)
         return roomQueryset
+    
+class HostelList(generics.ListCreateAPIView):
+    serializer_class = HostelSerializer
+    queryset = Hostel.objects.all()
+
+
+class HostelRoomList(generics.ListAPIView):
+    serializer_class = RoomSerializer
+    def get_queryset(self):
+        hostelID = self.kwargs['pk']
+        queryset = Room.objects.filter(hostel=hostelID)
+        return queryset
+    
+class HostelDetails(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = HostelSerializer
+    queryset = Hostel.objects.all()
