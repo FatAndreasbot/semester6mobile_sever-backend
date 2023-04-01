@@ -17,12 +17,12 @@ class HostelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hostel
         fields = (
+            'id',
             'address',
             'hostelNumber'
         )
 
 class RoomSerializer(serializers.ModelSerializer):
-    hostel = HostelSerializer(many=False)
     class Meta:
         model = Room
         fields = (
@@ -31,8 +31,6 @@ class RoomSerializer(serializers.ModelSerializer):
         )
 
 class ProfileSerializer(serializers.ModelSerializer):
-    authData = UserSerializer(many=False, read_only=True)
-    room = RoomSerializer(many=False)
     class Meta:
         model = Profile
         fields = (

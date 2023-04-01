@@ -24,14 +24,15 @@ class Profile(models.Model):	#in case we need some additional data for our user 
 	def __str__(self) -> str:
 		return self.authData.first_name+"_"+self.authData.last_name+"_profile"
 
-#todo 
-#	create a hostel model and add that model to profile with a many-to-one relation
-
 class Hostel(models.Model):
 	address = models.CharField(max_length=150)
 	hostelNumber = models.CharField(max_length=4, unique=True)
+	def __str__(self) -> str:
+		return self.hostelNumber
 
 class Room(models.Model):
 	hostel = models.ForeignKey("common.Hostel", on_delete=models.CASCADE)
 	roomNumber = models.CharField(max_length=6, unique=True)
 	
+	def __str__(self) -> str:
+		return f"{self.hostel} - {self.roomNumber}"
